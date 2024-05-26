@@ -8,6 +8,11 @@ import (
 )
 
 func CreateJson(fileName string, filePath string, data interface{}, clearDir bool) error {
+
+	// Verificar e criar o diretório se necessário.
+	if err := CreateDirIfNotExist(filePath); err != nil {
+		return fmt.Errorf("falha ao verificar/criar o diretório: %v", err)
+	}
 	// Serializando os dados para JSON
 	jsonData, err := json.Marshal(data)
 	if err != nil {
@@ -29,6 +34,10 @@ func CreateJson(fileName string, filePath string, data interface{}, clearDir boo
 }
 
 func removeFilesInDir(path string) error {
+	// Verificar e criar o diretório se necessário.
+	if err := CreateDirIfNotExist(path); err != nil {
+		return fmt.Errorf("falha ao verificar/criar o diretório: %v", err)
+	}
 	// Abre o diretório
 	dir, err := os.Open(path)
 	if err != nil {
@@ -57,5 +66,14 @@ func removeFilesInDir(path string) error {
 		}
 	}
 
+	return nil
+}
+
+func CreateDirIfNotExist(dir string) error {
+	if _, err := os.Stat(dir); os.IsNotExist(err) {
+		if err := os.MkdirAll(dir, os.ModePerm); err != nil {
+			return fmt.Errorf("falha ao criar a pasta: %v", err)
+		}
+	}
 	return nil
 }

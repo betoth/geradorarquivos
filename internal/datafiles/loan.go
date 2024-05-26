@@ -29,7 +29,7 @@ type Loan struct {
 	Installments []Installment `json:"installments"`
 }
 
-var LoanData = Loan{
+var LoanData = &Loan{
 	IdExternal: uuid.New(),
 	CreateDate: time.Now(),
 	DueDate:    util.DatePlus30,

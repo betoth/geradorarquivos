@@ -26,7 +26,13 @@ func main() {
 	util.PrintFormatedJSON(data)
 	fmt.Println("```")
 
-	file.GenerateSha256(data)
+	hash, err := file.GenerateSha256(data)
+	if err != nil {
+		fmt.Println("Erro:", err)
+	} else {
+		fmt.Printf("Hash SHA-256: %s\n", hash)
+	}
+
 	file.CreateJson(fileName.String(), filePath, data, removeFiles)
 
 }

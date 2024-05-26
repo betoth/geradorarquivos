@@ -2,18 +2,26 @@ package file
 
 import (
 	"crypto/sha256"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 )
 
-func GenerateSha256(data interface{}) {
+// GenerateSha256 gera o hash SHA-256 dos dados fornecidos e retorna o hash como uma string hexadecimal e um possível erro.
+func GenerateSha256(data interface{}) (string, error) {
+	// Serializar os dados para JSON.
 	datab, err := json.Marshal(data)
 	if err != nil {
-		fmt.Printf("Error serializing data: %v\n", err)
-		return
+		return "", fmt.Errorf("error serializing data: %v", err)
 	}
 
+	// Criar um novo hasher SHA-256 e escrever os dados serializados.
 	hasher := sha256.New()
 	hasher.Write(datab)
-	fmt.Printf("Generate in function %x\n", hasher.Sum(nil))
+
+	// Obter o hash e converter para uma string hexadecimal.
+	hash := hasher.Sum(nil)
+	hashString := hex.EncodeToString(hash)
+
+	return hashString, nil
 }

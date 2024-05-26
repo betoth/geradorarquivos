@@ -5,6 +5,7 @@ import (
 
 	"github.com/betoth/geradorarquivos/internal/datafiles"
 	"github.com/betoth/geradorarquivos/internal/file"
+	"github.com/betoth/geradorarquivos/internal/util"
 
 	"github.com/google/uuid"
 )
@@ -22,7 +23,7 @@ func main() {
 	fmt.Println("```")
 	fmt.Println("\n#S3")
 	fmt.Println("\n```json")
-	datafiles.Imrpime(data)
+	util.PrintFormatedJSON(data)
 	fmt.Println("```")
 
 	file.GenerateSha256(data)

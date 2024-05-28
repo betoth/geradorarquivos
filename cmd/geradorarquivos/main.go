@@ -24,7 +24,7 @@ func main() {
 
 	fileName := uuid.New()
 	filePath := "../../data/"
-	data := datafiles.LoanData
+	data := datafiles.ExempleData
 	removeFiles := true
 
 	fmt.Println(s3Token)
